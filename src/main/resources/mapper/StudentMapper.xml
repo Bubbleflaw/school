@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jckj.mapper.StudentMapper">
+	<!-- 列表 -->
+	<select id="list" parameterType="com.jckj.dto.LayUiDto" resultType="com.jckj.model.Student">
+		select
+		id,childname,birthday,gender,studentnumber,grade,studentstate,isshow,createtime,updatetime
+		from t_student_info
+		where isdelete=0
+		<if test="id !=null and id !=''">
+			and id like concat('%',#{id},'%')
+		</if>
+		<if test="childname !=null and childname !=''">
+			and childname like concat('%',#{childname},'%')
+		</if>
+		<if test="studentnumber !=null and studentnumber !=''">
+			and studentnumber like concat('%',#{studentnumber},'%')
+		</if>
+		<if test="grade !=null and grade !=''">
+			and grade like concat('%',#{grade},'%')
+		</if>
+		<if test="studentstate !=null and studentstate !=''">
+			and studentstate like concat('%',#{studentstate},'%')
+		</if>
+		<if test="isshow !=null and isshow !=''">
+			and isshow like concat('%',#{isshow},'%')
+		</if>
+		order by id asc
+		limit #{dataNum},#{limit}
+	</select>
+	<!-- 总数 -->
+	<select id="count" parameterType="com.jckj.dto.LayUiDto" resultType="java.lang.Integer">
+		select 
+		count(1)
+		from t_student_info
+		where isdelete=0
+		<if test="id !=null and id !=''">
+			and id like concat('%',#{id},'%')
+		</if>
+		<if test="childname !=null and childname !=''">
+			and childname like concat('%',#{childname},'%')
+		</if>
+		<if test="studentnumber !=null and studentnumber !=''">
+			and studentnumber like concat('%',#{studentnumber},'%')
+		</if>
+		<if test="grade !=null and grade !=''">
+			and grade like concat('%',#{grade},'%')
+		</if>
+		<if test="studentstate !=null and studentstate !=''">
+			and studentstate like concat('%',#{studentstate},'%')
+		</if>
+		<if test="isshow !=null and isshow !=''">
+			and isshow like concat('%',#{isshow},'%')
+		</if>
+	</select>	
+	
+	<!-- 详情 -->
+	<select id="info" resultType="com.jckj.model.Student">
+		select
+		id,childname,birthday,gender,studentnumber,grade,studentstate,isshow,createtime,updatetime
+		from t_student_info
+		where id=#{0}
+	</select>
+	<!-- 修改 -->
+	<update id="update" parameterType="com.jckj.model.Student">
+		update t_student_info
+		<trim prefix="set " suffixOverrides=",">
+			<if test="childname !=null">childname=#{childname},</if>
+			<if test="birthday !=null">birthday=#{birthday},</if>
+			<if test="gender !=null">gender=#{gender},</if>
+			<if test="studentnumber !=null">studentnumber=#{studentnumber},</if>
+			<if test="grade !=null">grade=#{grade},</if>
+			<if test="studentstate !=null">studentstate=#{studentstate},</if>
+			<if test="isshow !=null">isshow=#{isshow},</if>
+		</trim>
+		where id=#{id}
+	</update>
+	<!-- 删除 -->
+	<update id="remove">
+		update t_student_info set isdelete=1
+		where id=#{arg0}
+	</update>
+	<!-- 增加 -->
+	<insert id="add" parameterType="com.jckj.model.Student">
+		insert into t_student_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id !=null">id,</if>
+			<if test="childname !=null">childname,</if>
+			<if test="birthday !=null">birthday,</if>
+			<if test="gender !=null">gender,</if>
+			<if test="studentnumber !=null">studentnumber,</if>
+			<if test="grade !=null">grade,</if>
+			<if test="studentstate !=null">studentstate,</if>
+			<if test="isshow !=null">isshow,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id !=null">#{id},</if>
+			<if test="childname !=null">#{childname},</if>
+			<if test="birthday !=null">#{birthday},</if>
+			<if test="gender !=null">#{gender},</if>
+			<if test="studentnumber !=null">#{studentnumber},</if>
+			<if test="grade !=null">#{grade},</if>
+			<if test="studentstate !=null">#{studentstate},</if>
+			<if test="isshow !=null">#{isshow},</if>
+		</trim>
+	</insert>
+</mapper>

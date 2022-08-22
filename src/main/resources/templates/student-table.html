@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<!--导入thymeleaf名称空间-->
+<!--lang="en" xmlns:th="http://www.thymeleaf.org"-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" th:href="@{/lib/layui-v2.6.3/css/layui.css}" media="all">
+    <link rel="stylesheet" th:href="@{/css/public.css}" media="all">
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <fieldset class="table-search-fieldset">
+            <legend>搜索信息</legend>
+            <div style="margin: 10px 10px 10px 10px">
+                <form class="layui-form layui-form-pane" action="">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">学生编号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="id" placeholder="学生编号" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">姓名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="childname" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">学生学号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="studentnumber" placeholder="请输入学生学号" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">班级</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="grade" placeholder="请输入班级" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">状态</label>
+                            <div class="layui-input-inline">
+                                <select name="studentstate" placeholder="请输入状态" autocomplete="off" class="layui-input">
+<!--                                    <option th:value="空"></option>-->
+                                    <option th:value="IN">已入园</option>
+                                    <option th:value="OUT">已出园</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">是否显示</label>
+                            <div class="layui-input-inline">
+                                <select name="isshow" placeholder="是否显示" autocomplete="off" class="layui-input">
+<!--                                    <option th:value="空"></option>-->
+                                    <option th:value="1">是</option>
+                                    <option th:value="0">否</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 新增 </button>
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="edit"> 修改 </button>
+                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除 </button>
+            </div>
+        </script>
+
+        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+        <script type="text/html" id="currentTableBar">
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">修改</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+        </script>
+
+    </div>
+</div>
+
+<script th:src="@{/lib/layui-v2.6.3/layui.js}" charset="utf-8"></script>
+<script>
+    layui.use(['form', 'table'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table;
+
+        table.render({
+            elem: '#currentTableId',
+            url: '/student/list',
+            method: 'post',
+            toolbar: '#toolbarDemo',
+            defaultToolbar: ['filter', 'exports', 'print', {
+                title: '提示',
+                layEvent: 'LAYTABLE_TIPS',
+                icon: 'layui-icon-tips'
+            }],
+            cols: [ [
+                {type: "checkbox", width: 50},
+                {field: 'id', width: 70, title: '编号', sort: true},
+                {field: 'childname', width: 120, title: '姓名'},
+                {field: 'birthday', width: 120, title: '生日'},
+                {
+                    field: 'gender', width: 80, title: '性别', sort: true,templet: function (d) {
+                        if (d.gender == 1) {
+                            return "女";
+                        } else {
+                            return "男";
+                        }
+                    }
+                },
+                {field: 'studentnumber', width: 120, title: '学生编号'},
+                {field: 'grade', width: 80, title: '班级', sort: true},
+                {
+                    field: 'studentstate', width: 100, title: '状态', sort: true,templet: function (d) {
+                        if (d.studentstate == "IN") {
+                            return "已入园";
+                        } else {
+                            return "已出园";
+                        }
+                    }
+                },
+                {
+                    field: 'isshow', width: 80, title: '是否展示', sort: true,templet: function (d) {
+                        if (d.isshow == 1) {
+                            return "是";
+                        } else {
+                            return "否";
+                        }
+                    }
+                },
+                {field: 'createtime', width: 120, title: '创建时间', sort: true},
+                {field: 'updatetime', width: 120, title: '更新时间', sort: true},
+                {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
+            ] ],
+            limits: [10, 15, 20, 25, 50, 100],
+            limit: 10,
+            page: true,
+            skin: 'line'
+        });
+
+        // 监听搜索操作
+        form.on('submit(data-search-btn)', function (data) {
+            //执行搜索重载
+            table.reload('currentTableId', {
+                page: {
+                    curr: 1
+                }
+                , where: {
+                    id: data.field.id,
+                    childname:data.field.childname,
+                    studentnumber:data.field.studentnumber,
+                    grade:data.field.grade,
+                    studentstate:data.field.studentstate,
+                    isshow:data.field.isshow,
+                }
+            }, 'data');
+
+            return false;
+        });
+
+        /**
+         * toolbar监听事件
+         */
+        table.on('toolbar(currentTableFilter)', function (obj) {
+            if (obj.event === 'edit') {  // 监听修改操作
+                var checkStatus = table.checkStatus('currentTableId')
+                    , data = checkStatus.data
+                    , idList=[];
+                for(var i=0;i<data.length;i++){
+                    idList.push(data[i].id);
+                }
+                $.ajax({
+                    type:'post',
+                    url:'/student/infos',
+                    data:{ids:idList}
+                });
+                var index = layer.open({
+                    title: '修改用户',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    area: ['100%', '100%'],
+                    content: '/student/goedit',
+                    // href:'/templates/useredit.html'
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+            } else if (obj.event === 'delete') {  // 监听删除操作
+                var checkStatus = table.checkStatus('currentTableId')
+                    , data = checkStatus.data;
+                delList=[];
+                for(var i=0;i<data.length;i++){
+                    delList.push(data[i].id);
+                }
+                $.ajax({
+                    type:'post',
+                    url:'/student/removemore',
+                    data:{
+                        ids:delList
+                    },
+                    dataType:'JSON',
+                    success:function (da) {
+                        if(da.data==1){
+                            //表格重载
+                            table.reload("currentTableId");
+                        }
+                    }
+                });
+            }else if(obj.event === 'add'){  //新增
+                var index = layer.open({
+                    title: '新增用户',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    area: ['100%', '100%'],
+                    content: '/student/goadd',
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+                return false;
+            }
+        });
+
+        //监听表格复选框选择
+        table.on('checkbox(currentTableFilter)', function (obj) {
+            console.log(obj)
+        });
+
+        table.on('tool(currentTableFilter)', function (obj) {
+            var data = obj.data;
+            var id=data.id;
+            if (obj.event === 'edit') {
+                $.ajax({
+                    type:'post',
+                    url:'/student/info',
+                    data:{id:id}
+                });
+                var index = layer.open({
+                    title: '编辑用户',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    area: ['100%', '100%'],
+                    content: '/student/goedit',
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+                return false;
+            } else if (obj.event === 'delete') {
+                $.ajax({
+                    type:'post',
+                    url:'/student/remove',
+                    data:{id:id},
+                    dataType:'JSON',
+                    success:function (da) {
+                        if(da){
+                            layer.confirm('删除成功', function (index) {
+                                obj.del();
+                                layer.close(index);
+                            });
+                        }
+                    }
+                });
+            }
+        });
+
+    });
+</script>
+
+</body>
+</html >

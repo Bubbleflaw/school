@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jckj.mapper.GuardianMapper">
+	<sql id="start">
+		id guardianid, guardian_name guardianname, guardian_phone guardianphone,is_show isshow,create_time createtime,update_time updatetime
+	</sql>
+	<!-- 列表 -->
+	<select id="list" parameterType="com.jckj.dto.LayUiDto" resultType="com.jckj.model.Guardian">
+		select
+		<include refid="start"></include>
+		from t_guardian_info
+		where isdelete=0
+		<if test="guardianid !=null and guardianid !=''">
+			and guardianid like concat('%',#{guardianid},'%')
+		</if>
+		<if test="guardianname !=null and guardianname !=''">
+			and guardianname like concat('%',#{guardianname},'%')
+		</if>
+		<if test="guardianphone !=null and guardianphone !=''">
+			and guardianphone like concat('%',#{guardianphone},'%')
+		</if>
+		<if test="isshow !=null and isshow !=''">
+			and isshow like concat('%',#{isshow},'%')
+		</if>
+		order by guardianid asc
+		limit #{dataNum},#{limit}
+	</select>
+	<!-- 总数 -->
+	<select id="count" parameterType="com.jckj.dto.LayUiDto" resultType="java.lang.Integer">
+		select 
+		count(1)
+		from t_guardian_info
+		where isdelete=0
+		<if test="guardianid !=null and guardianid !=''">
+			and guardianid like concat('%',#{guardianid},'%')
+		</if>
+		<if test="guardianname !=null and guardianname !=''">
+			and guardianname like concat('%',#{guardianname},'%')
+		</if>
+		<if test="guardianphone !=null and guardianphone !=''">
+			and guardianphone like concat('%',#{guardianphone},'%')
+		</if>
+		<if test="isshow !=null and isshow !=''">
+			and isshow like concat('%',#{isshow},'%')
+		</if>
+	</select>	
+	
+	<!-- 详情 -->
+	<select id="info" resultType="com.jckj.model.Guardian">
+		select
+		<include refid="start"></include>
+		from t_guardian_info
+		where guardianid=#{0}
+	</select>
+	<!-- 修改 -->
+	<update id="update" parameterType="com.jckj.model.Guardian">
+		update t_guardain_info
+		<trim prefix="set " suffixOverrides=",">
+			<if test="guardianname !=null">guardianname=#{guardianname},</if>
+			<if test="guardianphone !=null">guardianphone=#{guardianphone},</if>
+			<if test="isshow !=null">isshow=#{isshow},</if>
+		</trim>
+		where guardianid=#{guardianid}
+	</update>
+	<!-- 删除 -->
+	<update id="remove">
+		update t_guardian_info set isdelete=1
+		where guardianid=#{arg0}
+	</update>
+	<!-- 增加 -->
+	<insert id="add" parameterType="com.jckj.model.Guardian">
+		insert into t_guardian_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="guardianname !=null">guardianname,</if>
+			<if test="guardianphone !=null">guardianphone,</if>
+			<if test="isshow !=null">isshow,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="guardianname !=null">#{guardianname},</if>
+			<if test="guardianphone !=null">#{guardianphone},</if>
+			<if test="isshow !=null">#{isshow},</if>
+		</trim>
+	</insert>
+</mapper>
