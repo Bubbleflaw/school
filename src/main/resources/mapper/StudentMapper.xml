@@ -2,29 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jckj.mapper.StudentMapper">
+	<sql id="start">
+		id,child_name childName,birthday,gender,student_number studentNumber,grade,student_state studentState,is_show isShow,create_time createTime,update_time updateTime
+	</sql>
 	<!-- 列表 -->
 	<select id="list" parameterType="com.jckj.dto.LayUiDto" resultType="com.jckj.model.Student">
 		select
-		id,childname,birthday,gender,studentnumber,grade,studentstate,isshow,createtime,updatetime
+		<include refid="start"></include>
 		from t_student_info
-		where isdelete=0
+		where is_delete=0
 		<if test="id !=null and id !=''">
 			and id like concat('%',#{id},'%')
 		</if>
-		<if test="childname !=null and childname !=''">
-			and childname like concat('%',#{childname},'%')
+		<if test="childName !=null and childName !=''">
+			and childName like concat('%',#{childName},'%')
 		</if>
-		<if test="studentnumber !=null and studentnumber !=''">
-			and studentnumber like concat('%',#{studentnumber},'%')
+		<if test="studentNumber !=null and studentNumber !=''">
+			and studentNumber like concat('%',#{studentNumber},'%')
 		</if>
 		<if test="grade !=null and grade !=''">
 			and grade like concat('%',#{grade},'%')
 		</if>
-		<if test="studentstate !=null and studentstate !=''">
-			and studentstate like concat('%',#{studentstate},'%')
+		<if test="studentState !=null and studentState !=''">
+			and studentState like concat('%',#{studentState},'%')
 		</if>
-		<if test="isshow !=null and isshow !=''">
-			and isshow like concat('%',#{isshow},'%')
+		<if test="isShow !=null and isShow !=''">
+			and isShow like concat('%',#{isShow},'%')
 		</if>
 		order by id asc
 		limit #{dataNum},#{limit}
@@ -34,31 +37,31 @@
 		select 
 		count(1)
 		from t_student_info
-		where isdelete=0
+		where is_delete=0
 		<if test="id !=null and id !=''">
 			and id like concat('%',#{id},'%')
 		</if>
-		<if test="childname !=null and childname !=''">
-			and childname like concat('%',#{childname},'%')
+		<if test="childName !=null and childName !=''">
+			and childName like concat('%',#{childName},'%')
 		</if>
-		<if test="studentnumber !=null and studentnumber !=''">
-			and studentnumber like concat('%',#{studentnumber},'%')
+		<if test="studentNumber !=null and studentNumber !=''">
+			and studentNumber like concat('%',#{studentNumber},'%')
 		</if>
 		<if test="grade !=null and grade !=''">
 			and grade like concat('%',#{grade},'%')
 		</if>
-		<if test="studentstate !=null and studentstate !=''">
-			and studentstate like concat('%',#{studentstate},'%')
+		<if test="studentState !=null and studentState !=''">
+			and studentState like concat('%',#{studentState},'%')
 		</if>
-		<if test="isshow !=null and isshow !=''">
-			and isshow like concat('%',#{isshow},'%')
+		<if test="isShow !=null and isShow !=''">
+			and isShow like concat('%',#{isShow},'%')
 		</if>
 	</select>	
 	
 	<!-- 详情 -->
 	<select id="info" resultType="com.jckj.model.Student">
 		select
-		id,childname,birthday,gender,studentnumber,grade,studentstate,isshow,createtime,updatetime
+		<include refid="start"></include>
 		from t_student_info
 		where id=#{0}
 	</select>
@@ -66,19 +69,19 @@
 	<update id="update" parameterType="com.jckj.model.Student">
 		update t_student_info
 		<trim prefix="set " suffixOverrides=",">
-			<if test="childname !=null">childname=#{childname},</if>
+			<if test="childName !=null">childName=#{childName},</if>
 			<if test="birthday !=null">birthday=#{birthday},</if>
 			<if test="gender !=null">gender=#{gender},</if>
-			<if test="studentnumber !=null">studentnumber=#{studentnumber},</if>
+			<if test="studentNumber !=null">studentNumber=#{studentNumber},</if>
 			<if test="grade !=null">grade=#{grade},</if>
-			<if test="studentstate !=null">studentstate=#{studentstate},</if>
-			<if test="isshow !=null">isshow=#{isshow},</if>
+			<if test="studentState !=null">studentState=#{studentState},</if>
+			<if test="isShow !=null">isShow=#{isShow},</if>
 		</trim>
 		where id=#{id}
 	</update>
 	<!-- 删除 -->
 	<update id="remove">
-		update t_student_info set isdelete=1
+		update t_student_info set is_delete=1
 		where id=#{arg0}
 	</update>
 	<!-- 增加 -->
@@ -86,23 +89,23 @@
 		insert into t_student_info
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id !=null">id,</if>
-			<if test="childname !=null">childname,</if>
+			<if test="chilNname !=null">childName,</if>
 			<if test="birthday !=null">birthday,</if>
 			<if test="gender !=null">gender,</if>
-			<if test="studentnumber !=null">studentnumber,</if>
+			<if test="studentNumber !=null">studentNumber,</if>
 			<if test="grade !=null">grade,</if>
-			<if test="studentstate !=null">studentstate,</if>
-			<if test="isshow !=null">isshow,</if>
+			<if test="studentState !=null">studentState,</if>
+			<if test="isShow !=null">isShow,</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id !=null">#{id},</if>
-			<if test="childname !=null">#{childname},</if>
+			<if test="childName !=null">#{childName},</if>
 			<if test="birthday !=null">#{birthday},</if>
 			<if test="gender !=null">#{gender},</if>
-			<if test="studentnumber !=null">#{studentnumber},</if>
+			<if test="studentNumber !=null">#{studentNumber},</if>
 			<if test="grade !=null">#{grade},</if>
-			<if test="studentstate !=null">#{studentstate},</if>
-			<if test="isshow !=null">#{isshow},</if>
+			<if test="studentState !=null">#{studentState},</if>
+			<if test="isShow !=null">#{isShow},</if>
 		</trim>
 	</insert>
 </mapper>

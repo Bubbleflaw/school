@@ -61,11 +61,11 @@ public class LayUiDto implements Serializable {
 	/**
 	 * 学员姓名
 	 */
-	private String childname;
+	private String childName;
 	/**
 	 * 学号
 	 */
-	private String studentnumber;
+	private String studentNumber;
 	/**
 	 * 学员班级
 	 */
@@ -73,11 +73,11 @@ public class LayUiDto implements Serializable {
 	/**
 	 * 学员状态
 	 */
-	private String studentstate;
+	private String studentState;
 	/**
 	 * 学员——显示
 	 */
-	private Integer isshow;
+	private Integer isShow;
 	/**
 	 * 监护人id
 	 */

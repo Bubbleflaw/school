@@ -30,13 +30,13 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">姓名</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="childname" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+                                <input type="text" name="childName" placeholder="请输入姓名" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">学生学号</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="studentnumber" placeholder="请输入学生学号" autocomplete="off" class="layui-input">
+                                <input type="text" name="studentNumber" placeholder="请输入学生学号" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -48,7 +48,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">状态</label>
                             <div class="layui-input-inline">
-                                <select name="studentstate" placeholder="请输入状态" autocomplete="off" class="layui-input">
+                                <select name="studentState" placeholder="请输入状态" autocomplete="off" class="layui-input">
 <!--                                    <option th:value="空"></option>-->
                                     <option th:value="IN">已入园</option>
                                     <option th:value="OUT">已出园</option>
@@ -58,7 +58,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">是否显示</label>
                             <div class="layui-input-inline">
-                                <select name="isshow" placeholder="是否显示" autocomplete="off" class="layui-input">
+                                <select name="isShow" placeholder="是否显示" autocomplete="off" class="layui-input">
 <!--                                    <option th:value="空"></option>-->
                                     <option th:value="1">是</option>
                                     <option th:value="0">否</option>
@@ -111,7 +111,7 @@
             cols: [ [
                 {type: "checkbox", width: 50},
                 {field: 'id', width: 70, title: '编号', sort: true},
-                {field: 'childname', width: 120, title: '姓名'},
+                {field: 'childName', width: 120, title: '姓名'},
                 {field: 'birthday', width: 120, title: '生日'},
                 {
                     field: 'gender', width: 80, title: '性别', sort: true,templet: function (d) {
@@ -122,10 +122,10 @@
                         }
                     }
                 },
-                {field: 'studentnumber', width: 120, title: '学生编号'},
+                {field: 'studentNumber', width: 120, title: '学生编号'},
                 {field: 'grade', width: 80, title: '班级', sort: true},
                 {
-                    field: 'studentstate', width: 100, title: '状态', sort: true,templet: function (d) {
+                    field: 'studentState', width: 100, title: '状态', sort: true,templet: function (d) {
                         if (d.studentstate == "IN") {
                             return "已入园";
                         } else {
@@ -134,7 +134,7 @@
                     }
                 },
                 {
-                    field: 'isshow', width: 80, title: '是否展示', sort: true,templet: function (d) {
+                    field: 'isShow', width: 80, title: '是否展示', sort: true,templet: function (d) {
                         if (d.isshow == 1) {
                             return "是";
                         } else {
@@ -142,8 +142,8 @@
                         }
                     }
                 },
-                {field: 'createtime', width: 120, title: '创建时间', sort: true},
-                {field: 'updatetime', width: 120, title: '更新时间', sort: true},
+                {field: 'createTime', width: 120, title: '创建时间', sort: true},
+                {field: 'updateTime', width: 120, title: '更新时间', sort: true},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ] ],
             limits: [10, 15, 20, 25, 50, 100],
@@ -161,11 +161,11 @@
                 }
                 , where: {
                     id: data.field.id,
-                    childname:data.field.childname,
-                    studentnumber:data.field.studentnumber,
+                    childName:data.field.childName,
+                    studentNumber:data.field.studentNumber,
                     grade:data.field.grade,
-                    studentstate:data.field.studentstate,
-                    isshow:data.field.isshow,
+                    studentState:data.field.studentState,
+                    isShow:data.field.isShow,
                 }
             }, 'data');
 

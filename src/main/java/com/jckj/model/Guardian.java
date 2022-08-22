@@ -29,9 +29,9 @@ public class Guardian {
     @TableLogic
     private Integer isdelete;
     @TableField(fill = FieldFill.INSERT)
-    private Date createtime;
+    private Long createtime;
     @TableField(value = "update_time",fill = FieldFill.UPDATE)
-    private Date updatetime;
+    private Long updatetime;
 
     public Guardian(Integer guardianid, String guardianname, String guardianphone, Integer isshow) {
         this.guardianid = guardianid;

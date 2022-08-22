@@ -17,35 +17,44 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Student {
+    /**
+     * 学员id
+     */
     private Integer id;
-//    @TableId("child_name")
-    private String childname;
+    /**
+     * 学员姓名
+     */
+    private String childName;
+    /**
+     * 学员生日
+     */
     private Long birthday;
+    /**
+     * 学员性别:0-男生，1-女生
+     */
     private Integer gender;
-//    @TableField("student_number")
-    private String studentnumber;
+    /**
+     *
+     */
+    private String studentNumber;
     private String grade;
-//    @TableField("state")
-    private String studentstate;
-//    @TableField("is_show")
-    private Integer isshow;
+    private String studentState;
+    private Integer isShow;
     @TableLogic
-//    @TableField("is_delete")
-    private Integer isdelete;
+    private Integer isDelete;
     @TableField(fill = FieldFill.INSERT)
-    private Long createtime;
+    private Long createTime;
     @TableField(fill = FieldFill.UPDATE)
-    private Long updatetime;
+    private Long updateTime;
 
-    public Student(Integer id, String childname, Long birthday, Integer gender, String studentnumber, String grade, String studentstate, Integer isshow) {
+    public Student(Integer id, String childName, Long birthday, Integer gender, String studentNumber, String grade, String studentState, Integer isShow) {
         this.id = id;
-        this.childname = childname;
+        this.childName = childName;
         this.birthday = birthday;
         this.gender = gender;
-        this.studentnumber = studentnumber;
+        this.studentNumber = studentNumber;
         this.grade = grade;
-        this.studentstate = studentstate;
-        this.isshow = isshow;
+        this.studentState = studentState;
+        this.isShow = isShow;
     }
-
 }
