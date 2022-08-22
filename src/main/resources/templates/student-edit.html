@@ -23,19 +23,19 @@
         <div class="layui-form-item">
             <label class="layui-form-label required">ID</label>
             <div class="layui-input-block">
-                <input type="text" name="id" id="id" lay-verify="required"  value="" class="layui-input">
+                <input type="hidden" name="id" id="id" lay-verify="required"  th:value="${student.id}" class="layui-input">
             </div>
         </div>
     <div class="layui-form-item">
         <label class="layui-form-label required">姓名</label>
         <div class="layui-input-block">
-            <input type="text" name="childname" id="childname" lay-verify="required" lay-reqtext="姓名不能为空" placeholder="请输入姓名" value="" class="layui-input">
+            <input type="text" name="childName" id="childName" lay-verify="required" lay-reqtext="姓名不能为空" placeholder="请输入姓名" th:value="${student.childName}" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label required">生日</label>
         <div class="layui-input-block">
-            <input type="text" name="birthday" id="birthday" placeholder="请输入生日" value="" class="layui-input">
+            <input type="date" name="birthday" id="birthday" placeholder="请输入生日" th:value="${student.birthday}" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -48,19 +48,19 @@
     <div class="layui-form-item">
         <label class="layui-form-label">学号</label>
         <div class="layui-input-block">
-            <input type="text" name="studentnumber" id="studentnumber" placeholder="请输入学号" value="" class="layui-input">
+            <input type="text" name="studentNumber" id="studentNumber" placeholder="请输入学号" th:value="${student.studentNumber}" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">班级</label>
         <div class="layui-input-block">
-            <input type="text" name="grade" id="grade" placeholder="请输入班级" value="" class="layui-input">
+            <input type="text" name="grade" id="grade" placeholder="请输入班级" th:value="${student.grade}" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">状态</label>
         <div class="layui-input-block">
-            <select name="studentstate" id="studentstate" placeholder="请输入状态" class="layui-input">
+            <select name="studentState" id="studentState" placeholder="请输入状态" class="layui-input">
                 <option th:value="OUT">已出园</option>
                 <option th:value="IN">已入园</option>
             </select>
@@ -69,7 +69,8 @@
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">是否展示</label>
         <div class="layui-input-block">
-            <select name="isshow" id="isshow" class="layui-input">
+
+            <select name="isShow" id="isShow" class="layui-input">
                 <option th:value="0">是</option>
                 <option th:value="1">否</option>
             </select>
@@ -97,13 +98,13 @@
                 url:'edit',
                 data:{
                     id:$("#id").val(),
-                    childname:$("#childname").val(),
+                    childName:$("#childName").val(),
                     birthday:$("#birthday").val(),
                     gender: $("input[name='gender']").val(),
-                    studentnumber:$("#studentnumber").val(),
+                    studentNumber:$("#studentNumber").val(),
                     grade:$("#grade").val(),
-                    studentstate:$("#studentstate").val(),
-                    isshow:$("#isshow").val(),
+                    studentState:$("#studentState").val(),
+                    isShow:$("#isShow").val(),
                 },
                 dataType:'JSON',
                 success:function (da) {

@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @Author:黄文倩
@@ -35,18 +36,6 @@ public class StudentController {
         MapVo map = studentService.list(dto);
         return map;
     }
-
-    /**
-     * 详情
-     * @param id
-     * @param model
-     */
-    @RequestMapping("info")
-    @ResponseBody
-    public void info(Integer id,Model model){
-        Student student = studentService.info(id);
-        model.addAttribute("student",student);
-    }
     @RequestMapping("infos")
     @ResponseBody
     public void infos(@RequestParam("ids[]") Integer[] ids,Model model){
@@ -54,8 +43,12 @@ public class StudentController {
         model.addAttribute("student",student);
     }
     @RequestMapping("goedit")
-    public String goedit(){
-        return "student-edit";
+    public ModelAndView goEdit(Integer id){
+        ModelAndView modelAndView=new ModelAndView();
+        Student student = studentService.info(id);
+        modelAndView.addObject("student",student);
+        modelAndView.setViewName("student-edit");
+        return modelAndView;
     }
     @RequestMapping("edit")
     @ResponseBody
@@ -66,7 +59,7 @@ public class StudentController {
     }
     @RequestMapping("removemore")
     @ResponseBody
-    public JsonResult removemore(@RequestParam("ids[]")Integer[] ids){
+    public JsonResult removeMore(@RequestParam("ids[]")Integer[] ids){
         Integer remove = studentService.removeMore(ids);
         JsonResult success = JsonResult.success(remove);
         return success;

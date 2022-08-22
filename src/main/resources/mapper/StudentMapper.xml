@@ -3,7 +3,9 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jckj.mapper.StudentMapper">
 	<sql id="start">
-		id,child_name childName,birthday,gender,student_number studentNumber,grade,student_state studentState,is_show isShow,create_time createTime,update_time updateTime
+		id,child_name childName,DATE_FORMAT(from_unixtime(birthday / 1000), '%Y-%m-%d') birthday,gender,student_number studentNumber,grade,student_state studentState,is_show isShow,
+        DATE_FORMAT(from_unixtime(create_time / 1000), '%Y-%m-%d %T') createTime,
+        DATE_FORMAT(from_unixtime(update_time / 1000), '%Y-%m-%d %T') updateTime
 	</sql>
 	<!-- 列表 -->
 	<select id="list" parameterType="com.jckj.dto.LayUiDto" resultType="com.jckj.model.Student">
@@ -69,13 +71,13 @@
 	<update id="update" parameterType="com.jckj.model.Student">
 		update t_student_info
 		<trim prefix="set " suffixOverrides=",">
-			<if test="childName !=null">childName=#{childName},</if>
+			<if test="childName !=null">child_name=#{childName},</if>
 			<if test="birthday !=null">birthday=#{birthday},</if>
 			<if test="gender !=null">gender=#{gender},</if>
-			<if test="studentNumber !=null">studentNumber=#{studentNumber},</if>
+			<if test="studentNumber !=null">student_number=#{studentNumber},</if>
 			<if test="grade !=null">grade=#{grade},</if>
-			<if test="studentState !=null">studentState=#{studentState},</if>
-			<if test="isShow !=null">isShow=#{isShow},</if>
+			<if test="studentState !=null">student_state=#{studentState},</if>
+			<if test="isShow !=null">is_show=#{isShow},</if>
 		</trim>
 		where id=#{id}
 	</update>

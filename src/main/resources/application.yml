@@ -2,6 +2,9 @@ server:
   port: 8888
 #配置spring
 spring:
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html

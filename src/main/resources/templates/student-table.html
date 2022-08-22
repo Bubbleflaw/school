@@ -248,11 +248,11 @@
             var data = obj.data;
             var id=data.id;
             if (obj.event === 'edit') {
-                $.ajax({
-                    type:'post',
-                    url:'/student/info',
-                    data:{id:id}
-                });
+                // $.ajax({
+                //     type:'post',
+                //     url:'/student/info',
+                //     data:{id:id}
+                // });
                 var index = layer.open({
                     title: '编辑用户',
                     type: 2,
@@ -260,7 +260,7 @@
                     maxmin:true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '/student/goedit',
+                    content: '/student/goedit?id='+id,
                 });
                 $(window).on("resize", function () {
                     layer.full(index);

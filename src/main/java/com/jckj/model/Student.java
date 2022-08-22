@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 /**
  * @Author:黄文倩
  * @CreatTime:2022/8/20
@@ -28,26 +30,44 @@ public class Student {
     /**
      * 学员生日
      */
-    private Long birthday;
+    private Date birthday;
     /**
      * 学员性别:0-男生，1-女生
      */
     private Integer gender;
     /**
-     *
+     *学员学号
      */
     private String studentNumber;
+    /**
+     * 班级
+     */
     private String grade;
+    /**
+     * 状态（IN-已入园、OUT-已出园）
+     */
     private String studentState;
+    /**
+     * 是否显示 0-否，1-是
+     */
     private Integer isShow;
+    /**
+     * 是否删除 0-否，1-是
+     */
     @TableLogic
     private Integer isDelete;
+    /**
+     * 创建时间
+     */
     @TableField(fill = FieldFill.INSERT)
-    private Long createTime;
+    private Date createTime;
+    /**
+     * 修改时间
+     */
     @TableField(fill = FieldFill.UPDATE)
-    private Long updateTime;
+    private Date updateTime;
 
-    public Student(Integer id, String childName, Long birthday, Integer gender, String studentNumber, String grade, String studentState, Integer isShow) {
+    public Student(Integer id, String childName, Date birthday, Integer gender, String studentNumber, String grade, String studentState, Integer isShow) {
         this.id = id;
         this.childName = childName;
         this.birthday = birthday;
